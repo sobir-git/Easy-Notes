@@ -12,4 +12,6 @@ Password Screen (with password "git")
 
 Here is a screenshot of the main screen:
 
-![ScreenShot](screen_shot.PNG)
+![ScreenShot](screenshot0.PNG)
+![ScreenShot](screenshot1.PNG)
+![ScreenShot](screenshot2.PNG)
