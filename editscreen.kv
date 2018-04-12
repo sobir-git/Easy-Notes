@@ -1,0 +1,74 @@
+#: import custombutton custombutton
+#: import os os
+
+
+<EditScreen>:
+    note: None
+    note_input: note_input
+    options_button: options_button
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(8)
+        spacing: dp(5)
+
+        # top bar
+        BoxLayout:
+            id: menu
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(50)
+
+            # 'back' button
+            ImageButton:
+                image_normal: os.path.join('images', 'back_button.png')
+                image_down: os.path.join('images', 'back_button_down.png')
+                size_hint: None, None
+                size: self.parent.height, self.parent.height
+                on_release: root.cancel()
+
+            # note's datecreated
+            Label:
+                text: root.note.date_created.strftime("%B %d, %Y\n%a, %H:%M") if root.note else ''
+                font_size: dp(14)
+
+            # edit button
+            ImageButton:
+                image_normal: os.path.join('images', 'edit_button.png')
+                image_down: os.path.join('images', 'edit_button_down.png')
+                size_hint: None, None
+                size: self.parent.height, self.parent.height
+
+            # options button
+            ImageButton:
+                id: options_button
+                image_normal: os.path.join('images', 'options_button.png')
+                image_down: os.path.join('images', 'options_button_down.png')
+                size_hint: None, None
+                size: self.parent.height, self.parent.height
+
+
+        # editing field
+        TextInput:
+            id: note_input
+            font_size: dp(18)
+            text: root.note.text if root.note else ''
+
+
+<OptionsDropdown>:
+    auto_width: False
+    save_btn: save_btn
+    delete_btn: delete_btn
+
+    width: dp(150)
+    Button:
+        id: save_btn
+        text: 'Save and go back'
+        size_hint: (None, None)
+        size: root.width, dp(50)
+        on_release: root.select('save')
+    Button:
+        id: delete_btn
+        text: 'Delete Note'
+        size_hint: (None, None)
+        size: root.width, dp(50)
+        on_release: root.select('delete')

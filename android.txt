@@ -1,0 +1,3 @@
+title=NTApp
+author=Sobir
+orientation=vertical|horizontal

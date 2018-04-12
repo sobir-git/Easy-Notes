@@ -1,0 +1,86 @@
+#: import custombutton custombutton
+#: import os os
+
+<MainScreen>:
+    id: mainscreen
+    rv: rv
+    BoxLayout:
+        padding: dp(8)
+        spacing: dp(5)
+        orientation: 'vertical'
+        TopBar:
+            rv: root.rv
+        RV:
+            id: rv
+
+    PlusButton:
+        source: os.path.join('images', 'plus_button.png')
+        mipmap: True
+        size_hint: None, None
+        size: dp(60), dp(60)
+        x: rv.right - self.width * 1.3
+        y: rv.y + self.height * 0.3
+        on_release: root.on_new_note(*args)
+
+
+<SearchField@TextInput>:
+    hint_text: "Search"
+    multiline: False
+    font_size: dp(20)
+    padding_y: (self.height - self.line_height) / 2
+
+
+<TopBar@BoxLayout>:
+    size_hint_y: None
+    height: dp(50)
+    orientation: 'horizontal'
+    rv: None
+
+    SearchField:
+        id: search_field
+        on_text: root.rv.search(self.text)
+        on_text_validate: root.rv.search(self.text)
+
+    ImageButton:
+        image_normal: os.path.join('images', 'search_button.png')
+        image_down: os.path.join('images', 'search_button_down.png')
+        mipmap: True
+        size_hint: None, None
+        size: self.parent.height, self.parent.height
+        on_release: root.rv.search(search_field.text)
+
+
+<RV>:
+    viewclass: 'NotePreview'
+    RecycleBoxLayout:
+        default_size: None, dp(120)
+        default_size_hint: 1, None
+        spacing: dp(8)
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+
+
+<NotePreview>:
+    canvas:
+        Color:
+            rgb: (0.23, .23, .23)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    note: None
+    orientation: 'horizontal'
+    padding: dp(15)
+    spacing: dp(30)
+    Label:
+        bold: True
+        text: root.note.date_created.strftime(root.DATE_VIEW_FORMAT) if root.note else ''
+        size_hint_x: None
+        font_size: dp(14)
+        width: self.texture_size[0]
+    Label:
+        id: lbl
+        text_size: self.size
+        font_size: dp(16)
+        valign: 'top'
+        text: root.note.text if root.note else ''

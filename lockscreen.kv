@@ -1,0 +1,31 @@
+#: import custombutton custombutton
+#: import os os
+
+
+<LockScreen>:
+    FloatLayout:
+        pass_input: pass_input
+        Label:
+            pos_hint: {'center_y': 0.8}
+            color: 1, 1, 1, 1
+            font_size: dp(40)
+            text: "Easy Notes"
+        PasswordInput:
+            id: pass_input
+            on_text: root.check_password(self.text)
+
+
+<PasswordInput@TextInput>:
+    size_hint: 0.7, None
+    height: dp(50)
+    pos_hint: {'center_y': 0.5, 'center_x': 0.5}
+    padding_y: (self.height - self.line_height) / 2
+    multiline: False
+    keyboard_suggestions: False
+    font_name: 'RobotoMono-Regular'
+    bold: True
+    password: True
+    font_size: dp(18)
+    hint_text: "Password"
+    on_parent: self.focus = True
+
